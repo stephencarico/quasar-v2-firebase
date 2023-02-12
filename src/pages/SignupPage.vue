@@ -24,6 +24,11 @@
 
 <script setup>
 import { ref } from "vue";
+import { useQuasar } from "quasar";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
+const auth = getAuth();
+const $q = useQuasar();
 
 const signupForm = ref({
   email: "",
@@ -31,7 +36,21 @@ const signupForm = ref({
 });
 
 const signupUser = () => {
-  console.log("SIGNING UP USER");
-  console.log(signupForm.value);
+  const { email, password } = signupForm.value;
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      console.log(user);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      $q.notify({
+        message: errorMessage,
+        color: "negative",
+      });
+    });
 };
 </script>
