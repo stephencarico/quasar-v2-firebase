@@ -8,10 +8,11 @@ const routes = [
     ]
   },
   {
-    path: '/signup',
+    path: '/',
     component: () => import('layouts/FormLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/SignupPage.vue') }
+      { path: 'signup', component: () => import('pages/SignupPage.vue') },
+      { path: 'login', component: () => import('pages/LoginPage.vue') }
     ]
   },
 
