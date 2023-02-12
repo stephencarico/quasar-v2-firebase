@@ -24,11 +24,13 @@
 
 <script setup>
 import { ref } from "vue";
+import { useUserStore } from "stores/user";
 import { useQuasar } from "quasar";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const auth = getAuth();
 const $q = useQuasar();
+const store = useUserStore();
 
 const loginForm = ref({
   email: "",
@@ -42,7 +44,7 @@ const signInUser = () => {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      console.log(user);
+      store.signIn(user);
     })
     .catch((error) => {
       const errorCode = error.code;
