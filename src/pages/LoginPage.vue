@@ -33,13 +33,12 @@ const $q = useQuasar();
 const store = useUserStore();
 
 const loginForm = ref({
-  email: "",
-  password: "",
+  email: "stephen_carico@hotmail.com",
+  password: "Christine098!",
 });
 
 const signInUser = () => {
   const { email, password } = loginForm.value;
-  console.log(email.password);
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in

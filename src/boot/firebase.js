@@ -1,7 +1,11 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useUserStore } from "stores/user";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
+
+const store = useUserStore();
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -15,5 +19,22 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+// Initialize Authentication
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    store.signIn(user);
+  } else {
+    // User is signed out
+    // ...
+    $q.notify({
+      message: 'Error: Unable to sign in.',
+      color: "negative",
+    });
+  }
+});
 
 export { app };

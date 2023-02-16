@@ -1,15 +1,15 @@
 import { defineStore } from 'pinia'
 
-export const useUserStore = defineStore('user', {
+export const useUserStore = defineStore('userStore', {
   state: () => ({
-    user: {}
+    user: {},
   }),
 
-  // getters: {
-  //   doubleCount (state) {
-  //     return state.user * 2
-  //   }
-  // },
+  getters: {
+    isAuthenticated (state) {
+      return !!state.user?.uid;
+    }
+  },
 
   actions: {
     signIn (response) {
