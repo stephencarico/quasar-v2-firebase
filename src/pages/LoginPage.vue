@@ -33,8 +33,8 @@ const $q = useQuasar();
 const store = useUserStore();
 
 const loginForm = ref({
-  email: "stephen_carico@hotmail.com",
-  password: "Christine098!",
+  email: "",
+  password: "",
 });
 
 const signInUser = () => {

@@ -29,10 +29,9 @@ onAuthStateChanged(auth, (user) => {
     store.signIn(user);
   } else {
     // User is signed out
-    // ...
     $q.notify({
-      message: 'Error: Unable to sign in.',
-      color: "negative",
+      message: 'Signed Out',
+      color: "positive",
     });
   }
 });
