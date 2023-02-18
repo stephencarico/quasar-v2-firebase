@@ -1,11 +1,11 @@
 <template>
   <q-page class="flex flex-center bg-grey-10">
-    <q-card style="width: 80%">
+    <q-card style="width: 80%; max-width: 500px">
       <form @submit="signupUser">
         <q-card-section>
           <div class="text-h6">Signup</div>
         </q-card-section>
-        <q-card-section class="q-gutter-y-md">
+        <q-card-section class="q-gutter-y-md text-center">
           <q-input v-model="signupForm.email" outlined label="email" />
           <q-input
             v-model="signupForm.password"
@@ -16,6 +16,7 @@
           <q-btn color="primary" class="full-width" type="submit">
             Sign Up
           </q-btn>
+          <q-btn class="full-width" flat to="/login">Login</q-btn>
         </q-card-section>
       </form>
     </q-card>

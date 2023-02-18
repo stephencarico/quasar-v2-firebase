@@ -5,7 +5,7 @@
         <q-card-section>
           <div class="text-h6">Log In</div>
         </q-card-section>
-        <q-card-section class="q-gutter-y-md">
+        <q-card-section class="q-gutter-y-md text-center">
           <q-input v-model="loginForm.email" outlined label="email" />
           <q-input
             v-model="loginForm.password"
@@ -15,6 +15,9 @@
           />
           <q-btn color="primary" class="full-width" type="submit">
             Log In
+          </q-btn>
+          <q-btn class="full-width" flat to="/signup">
+            Create a new account
           </q-btn>
         </q-card-section>
       </form>
