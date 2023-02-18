@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center bg-grey-10">
-    <q-card style="width: 80%">
+    <q-card style="width: 80%; max-width: 500px">
       <form @submit="signInUser">
         <q-card-section>
           <div class="text-h6">Log In</div>
@@ -24,13 +24,15 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { useUserStore } from "stores/user";
 import { useQuasar } from "quasar";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const auth = getAuth();
+const router = useRouter();
 const $q = useQuasar();
-const store = useUserStore();
+const userStore = useUserStore();
 
 const loginForm = ref({
   email: "",
@@ -41,9 +43,9 @@ const signInUser = () => {
   const { email, password } = loginForm.value;
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // Signed in
       const user = userCredential.user;
-      store.signIn(user);
+      userStore.updateUser(user);
+      router.push({ name: "Dashboard" });
     })
     .catch((error) => {
       const errorCode = error.code;

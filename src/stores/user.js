@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
 
 export const useUserStore = defineStore('userStore', {
   state: () => ({
@@ -12,8 +12,20 @@ export const useUserStore = defineStore('userStore', {
   },
 
   actions: {
-    signIn (response) {
+    updateUser (response) {
       this.user = response;
-    }
+    },
   }
 })
+
+useUserStore().$subscribe(
+  (_, state) => {
+    if (state.user?.uid) {
+      const { uid } = state.user;
+      localStorage.setItem("uid", JSON.stringify(uid));
+    } else {
+      localStorage.removeItem("uid");
+    }
+  },
+  { detached: true }
+);

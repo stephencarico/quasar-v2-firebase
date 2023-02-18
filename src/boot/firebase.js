@@ -1,11 +1,12 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 import { useUserStore } from "stores/user";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-const store = useUserStore();
+const userStore = useUserStore();
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -14,7 +15,7 @@ const firebaseConfig = {
   projectId: "copq-calculator",
   storageBucket: "copq-calculator.appspot.com",
   messagingSenderId: "603543406443",
-  appId: "1:603543406443:web:5a23582974edbe86ab6e2e"
+  appId: "1:603543406443:web:5a23582974edbe86ab6e2e",
 };
 
 // Initialize Firebase
@@ -26,13 +27,10 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
-    store.signIn(user);
+    userStore.updateUser(user);
   } else {
     // User is signed out
-    $q.notify({
-      message: 'Signed Out',
-      color: "positive",
-    });
+    userStore.updateUser({});
   }
 });
 

@@ -1,7 +1,6 @@
 import { route } from 'quasar/wrappers'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 import routes from './routes'
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 /*
  * If not building with SSR mode, you can
@@ -28,12 +27,11 @@ export default route(function (/* { store, ssrContext } */) {
   })
 
   Router.beforeEach(async (to, from) => {
-    const auth = getAuth();
-    await onAuthStateChanged(auth, (user) => {
-      if (to.meta.requiresAuth && !user.uid) {
-        return { name: "Login" };
-      }
-    });
+    const isAuthenticated = localStorage.getItem('uid');
+    if (to.meta.requiresAuth && !isAuthenticated) {
+      return { name: 'Login' };
+    }
+    if (to.meta.loginFlow && isAuthenticated) return false;
     return true;
   })
 
