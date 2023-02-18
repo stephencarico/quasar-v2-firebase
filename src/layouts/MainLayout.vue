@@ -13,7 +13,7 @@
 
         <q-toolbar-title> Quasar App </q-toolbar-title>
 
-        <q-btn flat @click="signOutUser">Logout</q-btn>
+        <q-btn flat @click="logOut">Log Out</q-btn>
       </q-toolbar>
     </q-header>
 
@@ -99,7 +99,7 @@ export default defineComponent({
     const auth = getAuth();
     const router = useRouter();
 
-    const signOutUser = () => {
+    const logOut = () => {
       signOut(auth)
         .then(() => {
           router.push({ name: "Login" });
@@ -118,7 +118,7 @@ export default defineComponent({
     return {
       essentialLinks: linksList,
       leftDrawerOpen,
-      signOutUser,
+      logOut,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
       },

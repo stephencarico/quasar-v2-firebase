@@ -16,7 +16,9 @@
           <q-btn color="primary" class="full-width" type="submit">
             Sign Up
           </q-btn>
-          <q-btn class="full-width" flat to="/login">Login</q-btn>
+        </q-card-section>
+        <q-card-section class="text-right">
+          <span> Already have an account? <a href="#/login">Log In</a> </span>
         </q-card-section>
       </form>
     </q-card>
