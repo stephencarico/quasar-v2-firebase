@@ -1,59 +1,49 @@
 <template>
-  <q-page class="flex flex-center bg-grey-10">
-    <q-card style="width: 80%; max-width: 500px">
-      <form @submit="signInUser">
-        <q-card-section>
-          <div class="text-h6">Log In</div>
-        </q-card-section>
-        <q-card-section class="q-gutter-y-md">
-          <q-input v-model="loginForm.email" outlined label="email" />
-          <q-input
-            v-model="loginForm.password"
-            outlined
-            label="password"
-            type="password"
-          />
-          <q-btn color="primary" class="full-width" type="submit">
-            Log In
-          </q-btn>
-        </q-card-section>
-        <q-card-section class="text-right">
-          <span> New? <a href="#/signup">Sign Up</a> </span>
-        </q-card-section>
-      </form>
+  <q-page class="flex q-pa-md justify-center items-center">
+    <q-card style="width: 100%; max-width: 500px" class="">
+      <q-tabs
+        v-model="tab"
+        dense
+        class="text-grey-7 bg-grey-3"
+        active-color="primary"
+        indicator-color="primary"
+        align="justify"
+        switch-indicator
+        active-bg-color="white"
+      >
+        <q-tab name="login" label="Sign in" />
+        <q-tab name="register" label="Sign up" />
+      </q-tabs>
+
+      <q-tab-panels v-model="tab" animated>
+        <q-tab-panel name="login" class="q-pa-none">
+          <AuthComponent :tab="tab" />
+        </q-tab-panel>
+
+        <q-tab-panel name="register" class="q-pa-none">
+          <AuthComponent :tab="tab" />
+          <div class="q-ma-sm">
+            <b>Note:</b> By signing up you agree to our terms of use and privacy
+            policy
+          </div>
+        </q-tab-panel>
+      </q-tab-panels>
     </q-card>
   </q-page>
 </template>
 
-<script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
-import { useQuasar } from "quasar";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+<script>
+import AuthComponent from '../components/AuthComponent.vue';
+import { defineComponent, ref } from 'vue';
 
-const auth = getAuth();
-const router = useRouter();
-const $q = useQuasar();
-
-const loginForm = ref({
-  email: "",
-  password: "",
+export default defineComponent({
+  name: 'AuthPage',
+  components: { AuthComponent },
+  setup() {
+    const tab = ref('login');
+    return {
+      tab,
+    };
+  },
 });
-
-const signInUser = () => {
-  const { email, password } = loginForm.value;
-  signInWithEmailAndPassword(auth, email, password)
-    .then(() => {
-      router.push({ name: "Dashboard" });
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      $q.notify({
-        message: errorMessage,
-        color: "negative",
-        caption: errorCode,
-      });
-    });
-};
 </script>

@@ -12,9 +12,8 @@ const routes = [
   },
   {
     path: '/',
-    component: () => import('layouts/FormLayout.vue'),
+    component: () => import('src/layouts/AuthLayout.vue'),
     children: [
-      { name: 'Signup', path: 'signup', component: () => import('pages/SignupPage.vue') },
       { name: 'Login', path: 'login', component: () => import('pages/LoginPage.vue') }
     ],
     meta: {
