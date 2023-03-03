@@ -39,6 +39,7 @@
 import { defineComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 import { getAuth, signOut } from "firebase/auth";
+import { useUserStore } from "stores/user";
 
 import EssentialLink from "components/EssentialLink.vue";
 
@@ -98,6 +99,7 @@ export default defineComponent({
     const leftDrawerOpen = ref(false);
     const auth = getAuth();
     const router = useRouter();
+    const userStore = useUserStore();
 
     const logOut = () => {
       signOut(auth)

@@ -28,14 +28,12 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useUserStore } from "stores/user";
 import { useQuasar } from "quasar";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const auth = getAuth();
 const router = useRouter();
 const $q = useQuasar();
-const userStore = useUserStore();
 
 const loginForm = ref({
   email: "",
@@ -45,9 +43,7 @@ const loginForm = ref({
 const signInUser = () => {
   const { email, password } = loginForm.value;
   signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      userStore.updateUser(user);
+    .then(() => {
       router.push({ name: "Dashboard" });
     })
     .catch((error) => {
